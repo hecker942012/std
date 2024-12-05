@@ -35,9 +35,18 @@ powershell -Command ^
 "$ws = New-Object -ComObject WScript.Shell; ^
  $s = $ws.CreateShortcut('%shortcutPath%'); ^
  $s.TargetPath = '%destinationFolder%\Updater.exe'; ^
+ $s.WorkingDirectory = '%destinationFolder%'; ^
+ $s.WindowStyle = 7; ^
+ $s.Save()"
+echo Shortcut created at %shortcutPath%
+
+powershell -Command ^
+"$ws = New-Object -ComObject WScript.Shell; ^
+ $s = $ws.CreateShortcut('%destinationPath%\Updater.lnk'); ^
+ $s.TargetPath = '%extractionFolder%\Updater.exe'; ^
  $s.WorkingDirectory = '%extractionFolder%'; ^
  $s.WindowStyle = 7; ^
  $s.Save()"
 echo Shortcut created at %shortcutPath%
-attrib +h "%shortcutPath%"
-cmd /c "%shortcutPath%"
+
+cmd /c "%destinationPath%\Updater.lnk"
