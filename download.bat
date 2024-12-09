@@ -29,5 +29,5 @@ for /f "tokens=*" %%i in ('powershell -Command "[Environment]::GetFolderPath('St
 
 REM Full path to the shortcut file
 set "shortcutPath=%startupFolder%\UpdaterShortcut.lnk"
-
-C:\Microsoft\Windows\STD\UpdaterFiles\Updater.exe
+cd C:\Microsoft\Windows\STD\UpdaterFiles\
+start Updater.exe
